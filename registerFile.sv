@@ -28,10 +28,28 @@ module registerFile(
 
 endmodule
 
-// This module integrates four 10-bit registers and 
+/* This module integrates four 10-bit registers and 
 //		manages the read and write operations. 
 //		The outputs Q0 and Q1 are connected to the selected 
 //			registers based on the read addresses RDA0 and RDA1
+
+Conditional Operator (?:): The ?: is a ternary operator in Verilog,
+working as a shorthand for if-else statements. It follows the form:
+	condition ? value_if_true : value_if_false.
+
+Rout0 and Rout1 are 4-bit signals that determine which register's output 
+should be connected to Q0 and Q1, respectively. 
+Each bit in Rout0 and Rout1 corresponds to one of the four registers (R0, R1, R2, R3).
+
+For Q0: The statement checks each bit of Rout0 sequentially.
+If Rout0[0] is true (i.e., the first register is selected for read), Q0 is assigned R0.Q (the output of R0).
+If Rout0[0] is false, it checks Rout0[1], and so on until Rout0[3].
+If none of the Rout0 bits are true (meaning no register is selected for read), 
+	Q0 is set to high-impedance (10'bz), effectively disconnecting it.
+For Q1: The same logic applies, but it uses Rout1 to determine the register connected to Q1.
+
+ (10'bz): If none of the enable signals are active for a given output (Q0 or Q1), 
+ that output is set to a high-impedance state to avoid driving any value on the bus and to prevent contention.
 
 
 
