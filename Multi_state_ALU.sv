@@ -11,10 +11,18 @@ module ALU(
 	always_comb
 	begin
 		case(FN)
-			4'b0001: _Q = OP + Temp;
-			4'b0010: _Q = OP - Temp;
-			4'b0100: _Q = OP & Temp;
-			4'b1000: _Q = OP | Temp;
+			4'b0000: _Q = OP;//load
+			4'b0001: _Q = Temp;//copy
+			4'b0010: _Q = OP + Temp;//add
+			4'b0011:	_Q = OP - Temp;//sub
+			4'b0100: _Q = ~OP + 1;//inverse
+			4'b0101: _Q = ~OP;//flip
+			4'b0110: _Q = OP & Temp;//and
+			4'b0111: _Q = OP | Temp;//or
+			4'b1000: _Q = OP ^ Temp;//xor
+			4'b1001: _Q = OP << 1;//Logical shift left
+			4'b1010: _Q = OP >> 1;//Logical shift right
+			4'b1011: _Q = OP >>> 1;//Arithmetic shift right
 			default: _Q = 10'b0;//default to handle exeptions.
 		endcase
 	end
