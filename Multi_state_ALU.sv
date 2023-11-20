@@ -14,7 +14,7 @@ module ALU(
 			4'b0000: _Q = OP;//load
 			4'b0001: _Q = Temp;//copy
 			4'b0010: _Q = OP + Temp;//add
-			4'b0011:	_Q = OP - Temp;//sub
+			4'b0011: _Q = OP - Temp;//sub
 			4'b0100: _Q = ~OP + 1;//inverse
 			4'b0101: _Q = ~OP;//flip
 			4'b0110: _Q = OP & Temp;//and
