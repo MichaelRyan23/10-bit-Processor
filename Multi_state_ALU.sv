@@ -12,7 +12,7 @@ module ALU(
 	begin
 		case(FN)
 			4'b0001: _Q = OP + Temp;
-			4'b0010:	_Q = OP - Temp;
+			4'b0010: _Q = OP - Temp;
 			4'b0100: _Q = OP & Temp;
 			4'b1000: _Q = OP | Temp;
 			default: _Q = 10'b0;//default to handle exeptions.
@@ -24,7 +24,6 @@ module ALU(
 		if(Ain) 
 		begin
 			Temp <= OP;
-			
 		end
 		if(Gin) 
 		begin
