@@ -12,14 +12,12 @@ module controller(
 
 // Instruction
     logic [1:0] opcode, regX, regY;
-    // logic [5:0] immValue;
 
     // Decode instruction fields
     always_comb begin
         opcode = INSTR[9:8];
         regX = INSTR[7:6];
         regY = INSTR[5:4];
-        // immValue = INSTR[5:0];
     end
 	 
 	 always_comb begin
@@ -282,16 +280,68 @@ module controller(
 							Clr = 1'b1;
 						end
 					end
-					default;
+					
+					default: begin
+					end
+					
 				endcase
-			
-			//2'b01: begin 
 				
-			
 			end
 			
-		endcase
+			//2'b01: begin
+			2'b10: begin					// add IMM 6-bit value
+				if(T == 2'b00) begin
+					Ext = 1'b1;
+					IRin = 1'b1;
+				end
+				if(T == 2'b01) begin
+					Rout = regX;			// don't know if i need this
+					ENR = 1'b1;				// don't know if i need this
+					Ain = 1'b1;
+				end
+				if(T == 2'b10) begin
+					Gin = 1'b1;
+					ALUcont = 4'b0010;
+					IMM = {4'b0000, INSTR[5:0]};	// load IMM value, zeroes on the left																						Michael Ryan code
+				end
+				if(T == 2'b11) begin
+					Rin = regX;
+					ENW = 1'b1;
+					Gout = 1'b1;
+					Clr = 1'b1;
+				end
+			end
+				
+			2'b11: begin					// subtract imm 6-bit value
+				if(T == 2'b00) begin
+					Ext = 1'b1;
+					IRin = 1'b1;
+				end
+				if(T == 2'b01) begin
+					Rout = regX;			// don't know if i need this
+					ENR = 1'b1;				// don't know if i need this
+					Ain = 1'b1;
+				end
+				if(T == 2'b10) begin
+					Gin = 1'b1;
+					ALUcont = 4'b0011;
+					IMM = {4'b0000, INSTR[5:0]};	// load IMM value, zeroes on the left
+				end
+				if(T == 2'b11) begin
+					Rin = regX;
+					ENW = 1'b1;
+					Gout = 1'b1;
+					Clr = 1'b1;
+				end
+			end
+			
+			default: begin
+			end
+			
+		endcase		// opcode endcase
 		
-	 end
+	 end			// always_comb end
 	 
 endmodule
+
+
