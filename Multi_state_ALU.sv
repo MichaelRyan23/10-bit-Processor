@@ -8,13 +8,16 @@ module ALU(
 	logic [9:0]_Q;
 	logic [9:0]_G;
 	
+	registerFile regis(.Q0(OP));
+	controller controll(.Ain(Ain), .Gin(Gin), .Gout(Gout), .ALUcont(FN));
+	
 	always_comb
 	begin
 		case(FN)
 			4'b0000: _Q = OP;//load
 			4'b0001: _Q = Temp;//copy
 			4'b0010: _Q = OP + Temp;//add
-			4'b0011: _Q = OP - Temp;//sub
+			4'b0011:	_Q = OP - Temp;//sub
 			4'b0100: _Q = -Temp;//inverse
 			4'b0101: _Q = ~Temp;//flip
 			4'b0110: _Q = OP & Temp;//and
