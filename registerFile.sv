@@ -1,4 +1,66 @@
 module registerFile(
+    input logic [9:0] D,                // Data input
+    input logic [1:0] WRA, RDA0, RDA1,  // Write and Read addresses
+    input logic ENW, ENR0, ENR1,        // Enable signals for Write and Reads
+    input logic CLKb,                   // Debounced clock signal
+    output logic [9:0] Q0, Q1           // Data outputs
+);
+
+    // Internal registers
+    logic [9:0] reg0, reg1, reg2, reg3;
+
+    // Write operation
+    always_ff @(posedge CLKb) begin
+        if(ENW) begin
+            case(WRA)
+                2'b00: reg0 <= D;
+                2'b01: reg1 <= D;
+                2'b10: reg2 <= D;
+                2'b11: reg3 <= D;
+            endcase
+        end
+    end
+
+    // Read operation for Q0
+    always_comb begin
+        if(ENR0) begin
+            case(RDA0)
+                2'b00: Q0 = reg0;
+                2'b01: Q0 = reg1;
+                2'b10: Q0 = reg2;
+                2'b11: Q0 = reg3;
+                default: Q0 = 10'bz;
+            endcase
+        end
+        else begin
+            Q0 = 10'bz;
+        end
+    end
+
+    // Read operation for Q1
+    always_comb begin
+        if(ENR1) begin
+            case(RDA1)
+                2'b00: Q1 = reg0;
+                2'b01: Q1 = reg1;
+                2'b10: Q1 = reg2;
+                2'b11: Q1 = reg3;
+                default: Q1 = 10'bz;
+            endcase
+        end
+        else begin
+            Q1 = 10'bz;
+        end
+    end
+
+endmodule
+
+
+
+
+
+/* OLD REGFILE DESIGN (MAY OR MAY NOT WORK IDK DON'T CARE
+module registerFile(
     input logic [9:0] D,
     input logic ENW, ENR0, ENR1, CLKb,
     input logic [1:0] WRA, RDA0, RDA1,
@@ -28,7 +90,7 @@ module registerFile(
 
 endmodule
 
-/* This module integrates four 10-bit registers and 
+// This module integrates four 10-bit registers and 
 //		manages the read and write operations. 
 //		The outputs Q0 and Q1 are connected to the selected 
 //			registers based on the read addresses RDA0 and RDA1
