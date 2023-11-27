@@ -18,7 +18,7 @@ module output_logic(
 	controller cont(.Clr(DONE));
 	
 	assign LED_B = BUS;
-	assign THEX[1:0] = TIME;
+	seven_seg hex6(.A(TIME), .S(THEX));
 	
 	always_comb
 	if(PEEKb)
