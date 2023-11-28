@@ -104,7 +104,7 @@ module topLevel(
 		.Q(data_bus)
 	);
 	
-	output_logic(
+	output_logic out(
 		.BUS(data_bus),
 		.REG(Q1_regFile),
 		.TIME(timestep),
