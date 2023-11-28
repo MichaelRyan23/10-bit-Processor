@@ -9,7 +9,7 @@ module topLevel(
 	output logic [6:0] DHEX1,
 	output logic [6:0] DHEX2
 	output logic [6:0] THEX,		// Timestep
-	output logic done
+	output logic done //belived to be LED_D
 );
 
 	logic CLKb;							// debounced clock signal
@@ -93,6 +93,29 @@ module topLevel(
 		.Q0(dataBus),
 		.Q1(Q1_regFile),
 	);
-		
+
+	ALU alu(
+		.OP(dataBus),
+		.FN(ALUcont_FN),
+		.Ain(Ain_Ain),
+		.Gin(Gin_Gin),
+		.Gout(Gout_Gout),
+		.CLKb(CLKb),
+		.Q(data_bus)
+	);
+	
+	output_logic(
+		.BUS(data_bus),
+		.REG(Q1_regFile),
+		.TIME(timestep),
+		.PEEKb(peek),
+		.DONE(Clr),
+		.LED_B(bus),
+		.DHEX0(DHEX0),
+		.DHEX1(DHEX1),
+		.DHEX2(DHEX2),
+		.THEX(THEX),
+		.LED_D(done)
+	);
 	
 endmodule
