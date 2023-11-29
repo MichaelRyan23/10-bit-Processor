@@ -1,17 +1,20 @@
 module trireg10(
     input logic [9:0] D,
     input logic CLKb, Rin, Rout,
-    output logic [9:0] Q
+    output tri [9:0] Q
 );
-    // Write operation
-    always_ff @(posedge CLKb) begin
+    logic [9:0] internal_Q; // Internal register to hold the value
+
+    // Write operation on positive clock edge
+    always_ff @(negedge CLKb) begin
         if (Rin) begin
-            Q <= D;
+            internal_Q <= D; // Load D into internal register when Rin is high
         end
     end
 
-    // Read operation (combinational with tri-state output)
-    assign Q = Rout ? Q : 10'bz;
+    // Tri-state control for output
+    assign Q = Rout ? internal_Q : 10'bz; // Drive Q with internal_Q when Rout is high, otherwise high impedance
+
 endmodule
 
 /*
