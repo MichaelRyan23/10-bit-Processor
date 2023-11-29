@@ -2,7 +2,6 @@ module upcount2(
 	input logic CLR, CLKb,
 	output logic [1:0] CNT
 );
-	controller control(.CLR(CLR));
 	
 	always_ff @(posedge CLR, negedge CLKb) // include CLRb for async opperation
 	begin
