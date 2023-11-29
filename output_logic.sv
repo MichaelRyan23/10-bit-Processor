@@ -20,15 +20,15 @@ module output_logic(
 	begin
 		if(PEEKb)
 		begin
-			assign BUS0 = BUS[3:0];
-			assign BUS1 = BUS[8:4];
-			assign BUS2 = BUS[9];
+			BUS0 = BUS[3:0];
+			BUS1 = BUS[8:4];
+			BUS2 = BUS[9];
 		end
 		else
 		begin
-			assign BUS0 = REG[3:0];
-			assign BUS1 = REG[8:4];
-			assign BUS2 = REG[9];
+			BUS0 = REG[3:0];
+			BUS1 = REG[8:4];
+			BUS2 = REG[9];
 		end
 		if(DONE) LED_D = 1;
 		else LED_D = 0;
