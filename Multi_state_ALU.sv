@@ -8,9 +8,6 @@ module ALU(
 	logic [9:0]_Q;
 	logic [9:0]_G;
 	
-	registerFile regis(.Q0(OP));
-	controller controll(.Ain(Ain), .Gin(Gin), .Gout(Gout), .ALUcont(FN));
-	
 	always_comb
 	begin
 		case(FN)
