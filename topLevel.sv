@@ -23,7 +23,10 @@ module topLevel(
 	wire [9:0] dataBus;				// shared bus
 	
 	logic [1:0] last_2_bits;		// last 2 bits that feed into regFile RDA1
-	last_2_bits = D[1:0];
+	
+	always_comb begin
+		last_2_bits = D[1:0];
+	end
 	
 	// controller to regFile
 	logic [1:0] Rin_WRA;
