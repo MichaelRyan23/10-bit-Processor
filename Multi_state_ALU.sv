@@ -23,6 +23,8 @@ module ALU(
 			4'b1001: _Q = OP << 1;//Logical shift left
 			4'b1010: _Q = OP >> 1;//Logical shift right
 			4'b1011: _Q = OP >>> 1;//Arithmetic shift right
+			4'b1100: _Q = OP + Temp;//addi
+			4'b1101: _Q = OP - Temp;//subi
 			default: _Q = 10'b0;//default to handle exeptions.
 		endcase
 	end
@@ -37,7 +39,7 @@ module ALU(
 		begin
 			_G <= _Q;
 		end
-		if(Gout) 
+		if(Gout) //maybe change to always_comb
 		begin
 			trireg10(.D(_G), .CLKb(CLKb), .Rin(Gout), .Rout(Gout), .Q(Q));
 		end
