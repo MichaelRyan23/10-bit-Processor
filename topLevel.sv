@@ -7,7 +7,7 @@ module topLevel(
 	output logic [9:0] bus,			// LEDs for current value on data bus
 	output logic [6:0] DHEX0,
 	output logic [6:0] DHEX1,
-	output logic [6:0] DHEX2
+	output logic [6:0] DHEX2,
 	output logic [6:0] THEX,		// Timestep
 	output logic done //belived to be LED_D
 );
