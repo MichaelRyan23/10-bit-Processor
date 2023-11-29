@@ -40,12 +40,15 @@ module topLevel(
 	logic Gout_Gout;
 	logic ALUcont_FN;
 	
-	// calling input buffer for enabling external data
-	inputBuffer buffer(
-		.D(D),
-		.externalEnable(extEN),
-		.dataBus(dataBus)
-	);
+	// input buffer for enabling external data
+	always_comb begin
+		 if (extEN) begin
+			  dataBus <= D;
+		 end
+		 else begin
+			  dataBus <= 10'bz;
+		 end
+	end
 	
 	// debouncing clock signal
 	debouncer dbCLK(		
@@ -130,6 +133,7 @@ module topLevel(
 		
 	
 endmodule
+	
 	
 	
 	
