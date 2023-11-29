@@ -15,11 +15,6 @@ module output_logic(
 	logic [3:0]BUS0, BUS1, BUS2;
 	logic [3:0]REG0, REG1, REG2;
 	
-	ALU alu(.Q(BUS));
-	registerFile regis(.Q1(REG));
-	upcount2 count(.CNT(TIME));
-	controller cont(.Clr(DONE));
-	
 	assign LED_B = BUS;
 	assign BUS0 = BUS[3:0];
 	assign BUS1 = BUS[8:4];
