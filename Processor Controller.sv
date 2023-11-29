@@ -21,6 +21,21 @@ module controller(
     end
 	 
 	 always_comb begin
+	 
+	 // defaults
+	 IMM = 10'bz;   			// Default value for IMM
+    Rin = 2'b0;            // Default value for Rin
+    Rout = 2'b0;           // Default value for Rout
+    ENW = 1'b0;            // Default value for ENW
+    ENR = 1'b0;            // Default value for ENR
+    Ain = 1'b0;            // Default value for Ain
+    Gin = 1'b0;            // Default value for Gin
+    Gout = 1'b0;           // Default value for Gout
+    ALUcont = 4'bz;      	// Default value for ALUcont
+    Ext = 1'b0;            // Default value for Ext
+    IRin = 1'b0;           // Default value for IRin
+    Clr = 1'b0;            // Default value for Clr
+	 
 		case(opcode)
 			2'b00: begin
 				case(INSTR[3:0])
