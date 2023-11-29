@@ -8,6 +8,9 @@ module ALU(
 	logic [9:0]_Q;
 	logic [9:0]_G;
 	
+	trireg10(.D(OP), .CLKb(CLKb), .Rin(Ain), .Q(Temp));
+	trireg10(.D(_Q), .CLKb(CLKb), .Rin(Gin), .Q(_G));
+	
 	always_comb
 	begin
 		case(FN)
@@ -39,10 +42,8 @@ module ALU(
 		begin
 			_G <= _Q;
 		end
-		if(Gout) //maybe change to always_comb
-		begin
-			trireg10(.D(_G), .CLKb(CLKb), .Rin(Gout), .Rout(Gout), .Q(Q));
-		end
 	end
+	
+	assign Q = (Gout) ? _G : 10'bz;
 	
 endmodule
